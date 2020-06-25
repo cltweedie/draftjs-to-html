@@ -509,6 +509,9 @@ export function getBlockMarkup(
   customEntityTransform,
 ) {
   const blockHtml = [];
+  console.log('Inside draftjs-to-html');
+  console.log('block:', block);
+  console.log('isAtomicEntityBlock:', isAtomicEntityBlock(block));
   if (isAtomicEntityBlock(block)) {
     blockHtml.push(getEntityMarkup(
       entityMap,

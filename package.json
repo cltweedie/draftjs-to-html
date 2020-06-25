@@ -37,7 +37,7 @@
   "scripts": {
     "size": "size-limit",
     "clean": "rimraf lib",
-    "build": "npm run clean && rollup -c && npm run size",
+    "build": "npm run clean && rollup -c --environment BUILD:development && npm run size",
     "dev": "rollup -c -w",
     "test": "mocha --require config/test-compiler.js config/test-setup.js js/**/*Test.js",
     "lint": "eslint js",
