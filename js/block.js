@@ -520,10 +520,11 @@ export function getBlockMarkup(
       customEntityTransform,
     ));
   } else {
+    let blockTag;
     if (block.text.startsWith('%liquid')) {
-      const blockTag = 'liquid';
+      blockTag = 'liquid';
     } else {
-      const blockTag = getBlockTag(block.type);
+      blockTag = getBlockTag(block.type);
     }
     if (blockTag) {
       blockHtml.push(`<${blockTag}`);
@@ -531,9 +532,9 @@ export function getBlockMarkup(
       if (blockStyle) {
         blockHtml.push(` style="${blockStyle}"`);
       }
-      // if (directional) {
-      //   blockHtml.push(' dir = "auto"');
-      // }
+      if (directional) {
+        blockHtml.push(' dir = "auto"');
+      }
       blockHtml.push('>');
       blockHtml.push(getBlockInnerMarkup(block, entityMap, hashtagConfig, customEntityTransform));
       blockHtml.push(`</${blockTag}>`);
