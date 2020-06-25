@@ -532,9 +532,11 @@ export function getBlockMarkup(
       if (blockStyle) {
         blockHtml.push(` style="${blockStyle}"`);
       }
-      if (directional) {
-        blockHtml.push(' dir = "auto"');
-      }
+      console.log('directional: ', directional);
+      console.log('customEntityTransform: ', customEntityTransform);
+      // if (directional) {
+      //   blockHtml.push(' dir = "auto"');
+      // }
       blockHtml.push('>');
       blockHtml.push(getBlockInnerMarkup(block, entityMap, hashtagConfig, customEntityTransform));
       blockHtml.push(`</${blockTag}>`);
