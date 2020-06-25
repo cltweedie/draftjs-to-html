@@ -4,7 +4,6 @@ import { forEach, isEmptyString } from './common';
 * Mapping block-type to corresponding html tag.
 */
 const blockTypesMapping = {
-  liquid: 'liquid',
   unstyled: 'p',
   'header-one': 'h1',
   'header-two': 'h2',
@@ -486,7 +485,6 @@ export function getBlockInnerMarkup(
 ) {
   const blockMarkup = [];
   const sections = getSections(block, hashtagConfig);
-  console.log('sections:', sections);
   sections.forEach((section, index) => {
     let sectionText = getSectionMarkup(block, entityMap, section, customEntityTransform);
     if (index === 0) {
@@ -495,9 +493,11 @@ export function getBlockInnerMarkup(
     if (index === sections.length - 1) {
       sectionText = trimTrailingZeros(sectionText);
     }
-    blockMarkup.push(sectionText);
+    // Super hacky but it keeps adding the liquid placeholder for some reason
+    if (!sectionText.startsWith('liquid')) {
+      blockMarkup.push(sectionText);
+    }
   });
-  console.log('blockMarkup: ', blockMarkup);
   return blockMarkup.join('');
 }
 
@@ -523,7 +523,13 @@ export function getBlockMarkup(
       customEntityTransform,
     ));
   } else {
-    const blockTag = getBlockTag(block.type);
+    let blockTag;
+    if (block.text.startsWith('%liquid')) {
+      blockTag = 'liquid';
+      block.type = 'liquid';
+    } else {
+      blockTag = getBlockTag(block.type);
+    }
     if (blockTag) {
       blockHtml.push(`<${blockTag}`);
       const blockStyle = getBlockStyle(block.data);
@@ -534,7 +540,6 @@ export function getBlockMarkup(
         blockHtml.push(' dir="auto"');
       }
       blockHtml.push('>');
-      console.log('getBlockInnerMarkup:', getBlockInnerMarkup(block, entityMap, hashtagConfig, customEntityTransform));
       blockHtml.push(getBlockInnerMarkup(block, entityMap, hashtagConfig, customEntityTransform));
       blockHtml.push(`</${blockTag}>`);
     }
