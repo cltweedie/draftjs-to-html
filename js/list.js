@@ -55,9 +55,6 @@ export function getListMarkup(
       if (blockStyle) {
         listHtml.push(` style="${blockStyle}"`);
       }
-      if (directional) {
-        listHtml.push(' dir = "auto"');
-      }
       listHtml.push('>');
       listHtml.push(getBlockInnerMarkup(
         block,
