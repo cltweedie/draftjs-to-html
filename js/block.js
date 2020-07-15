@@ -524,11 +524,12 @@ export function getBlockMarkup(
     ));
   } else {
     let blockTag;
+    console.log("Block Text: ", block.text)
     if (block.text.startsWith('%liquid')) {
       blockTag = 'liquid';
       block.type = 'liquid';
     } else if (block.text.startsWith('%html')) {
-      blockTag = 'div';
+      blockTag = 'htmlblock';
       block.type = 'htmlblock';
     } else {
       blockTag = getBlockTag(block.type);
