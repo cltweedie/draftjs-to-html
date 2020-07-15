@@ -467,6 +467,7 @@ function getSectionMarkup(
     entityInlineMarkup.push(getInlineStyleSectionMarkup(block, styleSection));
   });
   let sectionText = entityInlineMarkup.join('');
+  console.log('sectionText: ', sectionText);
   if (section.type === 'ENTITY') {
     console.log('+++ SECTION IS ENTITY +++');
     console.log('+++ section.entityKey: +++', section.entityKey);
@@ -475,6 +476,8 @@ function getSectionMarkup(
     }
   } else if (section.type === 'HASHTAG') {
     sectionText = `<a href="${sectionText}" class="wysiwyg-hashtag">${sectionText}</a>`;
+  } else if (sectionText.includes('%liquid')) {
+    sectionText = `<liquid>${sectionText}</liquid>`;
   }
   return sectionText;
 }
