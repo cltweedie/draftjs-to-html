@@ -30,7 +30,7 @@ export function getBlockTag(type) {
 export function getBlockStyle(data) {
   let styles = '';
   forEach(data, (key, value) => {
-    if (value) {
+    if (key != 'id' && value) {
       styles += `${key}:${value};`;
     }
   });
@@ -487,6 +487,7 @@ export function getBlockInnerMarkup(
 ) {
   const blockMarkup = [];
   const sections = getSections(block, hashtagConfig);
+  console.log('sections: ', sections);
   sections.forEach((section, index) => {
     let sectionText = getSectionMarkup(block, entityMap, section, customEntityTransform);
     if (index === 0) {
@@ -514,9 +515,6 @@ export function getBlockMarkup(
   customEntityTransform,
 ) {
   const blockHtml = [];
-  console.log('Inside draftjs-to-html');
-  console.log('block:', block);
-  console.log('isAtomicEntityBlock:', isAtomicEntityBlock(block));
   if (isAtomicEntityBlock(block)) {
     blockHtml.push(getEntityMarkup(
       entityMap,
@@ -542,6 +540,7 @@ export function getBlockMarkup(
         blockHtml.push(' dir="auto"');
       }
       blockHtml.push('>');
+      console.log('+++ calling getBlockInnerMarkup +++');
       blockHtml.push(getBlockInnerMarkup(block, entityMap, hashtagConfig, customEntityTransform));
       blockHtml.push(`</${blockTag}>`);
     }
