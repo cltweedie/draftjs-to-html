@@ -477,7 +477,7 @@ function getSectionMarkup(
   } else if (section.type === 'HASHTAG') {
     sectionText = `<a href="${sectionText}" class="wysiwyg-hashtag">${sectionText}</a>`;
   } else if (sectionText.includes('%liquid')) {
-    sectionText = customEntityTransform(null, text);
+    sectionText = customEntityTransform(null, sectionText);
   }
   return sectionText;
 }
