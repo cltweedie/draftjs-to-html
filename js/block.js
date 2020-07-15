@@ -30,7 +30,7 @@ export function getBlockTag(type) {
 export function getBlockStyle(data) {
   let styles = '';
   forEach(data, (key, value) => {
-    if (value) {
+    if (key != 'id' && value) {
       styles += `${key}:${value};`;
     }
   });
@@ -318,7 +318,9 @@ function getEntityMarkup(
   customEntityTransform,
 ) {
   const entity = entityMap[entityKey];
+  console.log('+++ Inside getEntityMarkup +++');
   if (typeof customEntityTransform === 'function') {
+    console.log('+++ customEntityTransform IS a function +++');
     const html = customEntityTransform(entity, text);
     if (html) {
       return html;
@@ -452,6 +454,8 @@ function getSectionMarkup(
   section,
   customEntityTransform,
 ) {
+  console.log('+++ in getSectionMarkup +++');
+  console.log('section.type = ', section.type);
   const entityInlineMarkup = [];
   const inlineStyleSections = getInlineStyleSections(
     block,
@@ -463,12 +467,17 @@ function getSectionMarkup(
     entityInlineMarkup.push(getInlineStyleSectionMarkup(block, styleSection));
   });
   let sectionText = entityInlineMarkup.join('');
+  console.log('sectionText: ', sectionText);
   if (section.type === 'ENTITY') {
+    console.log('+++ SECTION IS ENTITY +++');
+    console.log('+++ section.entityKey: +++', section.entityKey);
     if (section.entityKey !== undefined && section.entityKey !== null) {
       sectionText = getEntityMarkup(entityMap, section.entityKey, sectionText, customEntityTransform); // eslint-disable-line max-len
     }
   } else if (section.type === 'HASHTAG') {
     sectionText = `<a href="${sectionText}" class="wysiwyg-hashtag">${sectionText}</a>`;
+  } else if (sectionText.includes('%liquid')) {
+    sectionText = customEntityTransform(null, sectionText);
   }
   return sectionText;
 }
@@ -485,6 +494,7 @@ export function getBlockInnerMarkup(
 ) {
   const blockMarkup = [];
   const sections = getSections(block, hashtagConfig);
+  console.log('sections: ', sections);
   sections.forEach((section, index) => {
     let sectionText = getSectionMarkup(block, entityMap, section, customEntityTransform);
     if (index === 0) {
@@ -512,9 +522,6 @@ export function getBlockMarkup(
   customEntityTransform,
 ) {
   const blockHtml = [];
-  console.log('Inside draftjs-to-html');
-  console.log('block:', block);
-  console.log('isAtomicEntityBlock:', isAtomicEntityBlock(block));
   if (isAtomicEntityBlock(block)) {
     blockHtml.push(getEntityMarkup(
       entityMap,
@@ -540,6 +547,7 @@ export function getBlockMarkup(
         blockHtml.push(' dir="auto"');
       }
       blockHtml.push('>');
+      console.log('+++ calling getBlockInnerMarkup +++');
       blockHtml.push(getBlockInnerMarkup(block, entityMap, hashtagConfig, customEntityTransform));
       blockHtml.push(`</${blockTag}>`);
     }
