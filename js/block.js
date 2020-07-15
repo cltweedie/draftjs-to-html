@@ -318,7 +318,9 @@ function getEntityMarkup(
   customEntityTransform,
 ) {
   const entity = entityMap[entityKey];
+  console.log('+++ Inside getEntityMarkup +++');
   if (typeof customEntityTransform === 'function') {
+    console.log('+++ customEntityTransform IS a function +++');
     const html = customEntityTransform(entity, text);
     if (html) {
       return html;
