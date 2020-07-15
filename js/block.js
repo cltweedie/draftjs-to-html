@@ -529,7 +529,7 @@ export function getBlockMarkup(
       block.type = 'liquid';
     } else if (block.text.startsWith('%html')) {
       blockTag = 'div';
-      block.type = 'html';
+      block.type = 'htmlblock';
     } else {
       blockTag = getBlockTag(block.type);
     }
