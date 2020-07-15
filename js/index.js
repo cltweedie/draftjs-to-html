@@ -14,7 +14,7 @@ export default function draftToHtml(
 ) {
   console.log('+++ draftToHtml +++');
   console.log('+++ customEntityTransform is: +++');
-  console.log(custmEntityTransform);
+  console.log(customEntityTransform);
   const html = [];
   if (editorContent) {
     const { blocks, entityMap } = editorContent;
