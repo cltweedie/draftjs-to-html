@@ -466,6 +466,8 @@ function getSectionMarkup(
   });
   let sectionText = entityInlineMarkup.join('');
   if (section.type === 'ENTITY') {
+    console.log('+++ SECTION IS ENTITY +++');
+    console.log('+++ section.entityKey: +++', section.entityKey);
     if (section.entityKey !== undefined && section.entityKey !== null) {
       sectionText = getEntityMarkup(entityMap, section.entityKey, sectionText, customEntityTransform); // eslint-disable-line max-len
     }
