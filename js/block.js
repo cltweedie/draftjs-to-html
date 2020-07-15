@@ -455,6 +455,7 @@ function getSectionMarkup(
   customEntityTransform,
 ) {
   console.log('+++ in getSectionMarkup +++');
+  console.log('section.type = ', section.type);
   const entityInlineMarkup = [];
   const inlineStyleSections = getInlineStyleSections(
     block,
