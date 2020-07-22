@@ -476,7 +476,7 @@ function getSectionMarkup(
     }
   } else if (section.type === 'HASHTAG') {
     sectionText = `<a href="${sectionText}" class="wysiwyg-hashtag">${sectionText}</a>`;
-  } else if (sectionText.includes('%liquid')) {
+  } else if (sectionText.includes('$liquid')) {
     sectionText = customEntityTransform(null, sectionText);
   }
   return sectionText;
@@ -531,7 +531,7 @@ export function getBlockMarkup(
     ));
   } else {
     let blockTag;
-    if (block.text.startsWith('%liquid')) {
+    if (block.text.startsWith('$liquid')) {
       blockTag = 'liquid';
       block.type = 'liquid';
     } else {
