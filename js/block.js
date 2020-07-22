@@ -504,9 +504,9 @@ export function getBlockInnerMarkup(
       sectionText = trimTrailingZeros(sectionText);
     }
     // Super hacky but it keeps adding the liquid placeholder for some reason
-    // if (!sectionText.startsWith('liquid')) {
-    //   blockMarkup.push(sectionText);
-    // }
+    if (!sectionText.startsWith('liquid')) {
+      blockMarkup.push(sectionText);
+    }
   });
   return blockMarkup.join('');
 }
@@ -531,12 +531,12 @@ export function getBlockMarkup(
     ));
   } else {
     let blockTag;
-    // if (block.text.startsWith('$liquid')) {
-    //   blockTag = 'liquid';
-    //   block.type = 'liquid';
-    // } else {
+    if (block.text.startsWith('$liquid')) {
+      blockTag = 'liquid';
+      block.type = 'liquid';
+    } else {
       blockTag = getBlockTag(block.type);
-    // }
+    }
     if (blockTag) {
       blockHtml.push(`<${blockTag}`);
       const blockStyle = getBlockStyle(block.data);
