@@ -318,9 +318,7 @@ function getEntityMarkup(
   customEntityTransform,
 ) {
   const entity = entityMap[entityKey];
-  console.log('+++ Inside getEntityMarkup +++');
   if (typeof customEntityTransform === 'function') {
-    console.log('+++ customEntityTransform IS a function +++');
     const html = customEntityTransform(entity, text);
     if (html) {
       return html;
@@ -454,8 +452,6 @@ function getSectionMarkup(
   section,
   customEntityTransform,
 ) {
-  console.log('+++ in getSectionMarkup +++');
-  console.log('section.type = ', section.type);
   const entityInlineMarkup = [];
   const inlineStyleSections = getInlineStyleSections(
     block,
@@ -467,10 +463,7 @@ function getSectionMarkup(
     entityInlineMarkup.push(getInlineStyleSectionMarkup(block, styleSection));
   });
   let sectionText = entityInlineMarkup.join('');
-  console.log('sectionText: ', sectionText);
   if (section.type === 'ENTITY') {
-    console.log('+++ SECTION IS ENTITY +++');
-    console.log('+++ section.entityKey: +++', section.entityKey);
     if (section.entityKey !== undefined && section.entityKey !== null) {
       sectionText = getEntityMarkup(entityMap, section.entityKey, sectionText, customEntityTransform); // eslint-disable-line max-len
     }
@@ -494,7 +487,6 @@ export function getBlockInnerMarkup(
 ) {
   const blockMarkup = [];
   const sections = getSections(block, hashtagConfig);
-  console.log('sections: ', sections);
   sections.forEach((section, index) => {
     let sectionText = getSectionMarkup(block, entityMap, section, customEntityTransform);
     if (index === 0) {
@@ -531,6 +523,7 @@ export function getBlockMarkup(
     ));
   } else {
     let blockTag;
+    console.log('block.text: ', block.text);
     if (block.text.startsWith('$liquid')) {
       blockTag = 'liquid';
       block.type = 'liquid';
@@ -547,7 +540,6 @@ export function getBlockMarkup(
         blockHtml.push(' dir="auto"');
       }
       blockHtml.push('>');
-      console.log('+++ calling getBlockInnerMarkup +++');
       blockHtml.push(getBlockInnerMarkup(block, entityMap, hashtagConfig, customEntityTransform));
       blockHtml.push(`</${blockTag}>`);
     }
