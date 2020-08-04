@@ -524,6 +524,7 @@ export function getBlockMarkup(
   } else {
     let blockTag;
     console.log('block.text: ', block.text);
+    console.log('block.type: ', block.type);
     if (block.text.startsWith('$liquid')) {
       blockTag = 'liquid';
       block.type = 'liquid';
