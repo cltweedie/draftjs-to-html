@@ -528,9 +528,9 @@ export function getBlockMarkup(
     if (block.text.startsWith('$liquid')) {
       blockTag = 'liquid';
       block.type = 'liquid';
-    // } else if (block.text.startsWith('$html')) {
-    //   blockTag = 'div';
-    //   block.type = 'htmlblock';
+    } else if (block.text.startsWith('$html')) {
+      blockTag = 'div';
+      block.type = 'htmlblock';
     } else {
       blockTag = getBlockTag(block.type);
     }
