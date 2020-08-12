@@ -334,7 +334,7 @@ function getEntityMarkup(
   if (entity.type === 'IMAGE') {
     const { alignment } = entity.data;
     if (alignment && alignment.length) {
-      return `<p style="text-align:${alignment};"><img src="${entity.data.src}" alt="${entity.data.alt}" style="height: ${entity.data.height};width: ${entity.data.width}"/></p>`;
+      return `<img src="${entity.data.src}" alt="${entity.data.alt}" style="height: ${entity.data.height}; width: ${entity.data.width}; text-align:${alignment};" />`;
     }
     return `<img src="${entity.data.src}" alt="${entity.data.alt}" style="height: ${entity.data.height};width: ${entity.data.width}"/>`;
   }
