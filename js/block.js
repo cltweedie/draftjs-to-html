@@ -334,7 +334,7 @@ function getEntityMarkup(
   if (entity.type === 'IMAGE') {
     const { alignment } = entity.data;
     if (alignment && alignment.length) {
-      return `<div style="text-align:${alignment};"><img src="${entity.data.src}" alt="${entity.data.alt}" style="height: ${entity.data.height};width: ${entity.data.width}"/></div>`;
+      return `<p style="text-align:${alignment};"><img src="${entity.data.src}" alt="${entity.data.alt}" style="height: ${entity.data.height};width: ${entity.data.width}"/></p>`;
     }
     return `<img src="${entity.data.src}" alt="${entity.data.alt}" style="height: ${entity.data.height};width: ${entity.data.width}"/>`;
   }
@@ -523,8 +523,6 @@ export function getBlockMarkup(
     ));
   } else {
     let blockTag;
-    console.log('block.text: ', block.text);
-    console.log('block.type: ', block.type);
     if (block.text.startsWith('$liquid')) {
       blockTag = 'liquid';
       block.type = 'liquid';
